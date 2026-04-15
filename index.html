@@ -86,7 +86,6 @@
             margin: 0 auto;
             padding: 0 20px;
             display: grid;
-            /* SE CAMBIÓ LA ESTRUCTURA DEL GRID: ahora son solo 2 columnas */
             grid-template-columns: auto 1fr;
             align-items: center;
         }
@@ -94,12 +93,10 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            /* SE AÑADIÓ ESPACIADO A LA DERECHA DEL LOGO */
             padding-right: 20px;
         }
         .conagua-logo img { height: 42px; display: block; }
 
-        /* NUEVA CLASE PARA EL TEXTO DEL ENCABEZADO */
         .header-main-text {
             color: white;
             display: flex;
@@ -107,7 +104,7 @@
             justify-content: center;
         }
         .main-title {
-            font-size: 18px; /* Ajuste para el texto largo */
+            font-size: 18px;
             font-weight: 800;
             margin: 0;
             letter-spacing: 0.5px;
@@ -117,7 +114,6 @@
         .bivas-menu-wrapper {
             display: flex;
             justify-content: flex-end;
-            /* SE AÑADIÓ padding para que el menú flote al extremo */
             margin-left: auto;
         }
         .bivas-dropdown { position: relative; list-style: none; }
@@ -179,6 +175,28 @@
         .footer-col ul li a { color: #f4f4f4; text-decoration: none; font-size: 13px; }
         .footer-col ul li a:hover { text-decoration: underline; }
         .footer-col p { font-size: 13px; color: #f4f4f4; line-height: 1.5; margin: 0; }
+
+        /* =====================================================
+           COLUMNAS ORDENABLES
+           ===================================================== */
+        .results-table th.sortable {
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+        /* SE ELIMINÓ EL ESTILO HOVER MAGENTA AQUÍ */
+        
+        .results-table th .sort-icon {
+            display: inline-block;
+            margin-left: 5px;
+            opacity: 0.4;
+            font-size: 0.75rem;
+            transition: opacity 0.2s;
+        }
+        .results-table th.sort-asc .sort-icon,
+        .results-table th.sort-desc .sort-icon {
+            opacity: 1;
+        }
 
         /* =====================================================
            VENTANA MODAL
@@ -271,7 +289,7 @@
         }
 
         /* =====================================================
-           LAYOUT DE FILTROS (escritorio)
+           LAYOUT DE FILTROS
            ===================================================== */
         .filter-results-row {
             display: flex;
@@ -287,13 +305,7 @@
             color: #333;
             font-weight: 600;
         }
-        .filter-results-row .filter-group-texto label {
-            margin-bottom: 0;
-        }
-        .filter-results-row .filter-secondary-inner {
-            padding: 10px 0;
-        }
-
+        
         .filter-secondary-box {
             border: 1px solid #ccc;
             border-radius: 6px;
@@ -327,185 +339,55 @@
             transition: all 0.3s;
         }
 
-        .search-trigger:hover {
-            color: #A57F2C;
-        }
+        .search-trigger:hover { color: #A57F2C; }
 
         .input-slide {
-            width: 0;
-            opacity: 0;
-            padding: 0;
-            margin: 0;
+            width: 0; opacity: 0; padding: 0; margin: 0;
             border: 1px solid transparent;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             pointer-events: none; 
         }
 
         .filter-group-id.active .input-slide {
-            width: 130px; 
-            opacity: 1;
-            padding: 8px;
-            border: 1px solid #ccc;
-            pointer-events: auto;
+            width: 130px; opacity: 1; padding: 8px;
+            border: 1px solid #ccc; pointer-events: auto;
             margin-left: 10px;
         }
 
         .filter-group-id.active .search-trigger span {
-            width: 0;
-            opacity: 0;
-            display: none;
+            width: 0; opacity: 0; display: none;
         }
         
         .filter-group-texto { flex: 1; }
-        .filter-group-limpiar {
-            flex: 0 0 auto;
-            display: flex;
-            align-items: flex-end;
-        }
-        .filter-group-limpiar .btn-clear {
-            height: 42px;
-            white-space: nowrap;
-        }
+        .filter-group-limpiar { display: flex; align-items: flex-end; }
+        .filter-group-limpiar .btn-clear { height: 42px; white-space: nowrap; }
 
         /* =====================================================
-           RESPONSIVO — MÓVILES (< 768px)
+           RESPONSIVO
            ===================================================== */
         @media screen and (max-width: 768px) {
-
             .gob-nav { display: none; }
             .bivas-header { height: auto; }
-            .bivas-container {
-                grid-template-columns: 1fr;
-                gap: 8px;
-                padding: 12px 16px;
-            }
-            .conagua-logo {
-                justify-content: center;
-                padding-right: 0; /* SE QUITÓ EL PADDING EN MÓVIL */
-            }
-            /* SE AJUSTÓ EL TEXTO PARA MÓVIL */
-            .header-main-text {
-                text-align: center;
-            }
-            .main-title {
-                font-size: 16px;
-            }
-
+            .bivas-container { grid-template-columns: 1fr; gap: 8px; padding: 12px 16px; }
+            .conagua-logo { justify-content: center; padding-right: 0; }
+            .header-main-text { text-align: center; }
+            .main-title { font-size: 16px; }
             .footer-container { grid-template-columns: 1fr; text-align: center; }
             .footer-col h5 { border-bottom: none; }
-
-            .filter-secondary-inner {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .filter-group-id,
-            .filter-group-texto {
-                flex: 1 1 100%;
-                width: 100%;
-            }
-            
-            .filter-group-id.active .input-slide {
-                width: 100%;
-                margin-left: 0;
-                margin-top: 10px;
-            }
-
-            .filter-group-limpiar {
-                width: 100%;
-            }
-            .filter-group-limpiar .btn-clear {
-                width: 100%;
-                justify-content: center;
-                padding: 12px;
-            }
-            .filter-results-row {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 10px;
-            }
-            .btn-export {
-                width: 100%;
-                justify-content: center;
-                padding: 12px;
-            }
-
-            .results-table thead {
-                display: none !important;
-            }
-
-            .results-table,
-            .results-table table,
-            .results-table tbody {
-                display: block;
-                width: 100%;
-                overflow: hidden;
-            }
-
-            .results-table tr {
-                display: block;
-                width: 100%;
-                margin-bottom: 15px;
-                border: 2px solid #611232;
-                border-radius: 10px;
-                background: #fff;
-                box-sizing: border-box;
-                overflow: hidden;
-            }
-
-            .results-table td {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 10px 12px !important;
-                border-bottom: 1px solid #eee;
-                width: 100%;
-                box-sizing: border-box;
-                white-space: normal !important;
-                word-break: break-word;
-                max-width: none !important;
-                min-width: unset !important;
-            }
-
-            .results-table td::before {
-                content: attr(data-label);
-                font-weight: bold;
-                color: #611232;
-                font-size: 0.75rem;
-                flex-shrink: 0;
-                margin-right: 10px;
-            }
-
-            .results-table td[data-label="TÍTULO"] {
-                flex-direction: column;
-                align-items: flex-start;
-                text-align: left !important;
-                display: -webkit-box;
-                -webkit-line-clamp: 3;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-            .results-table td[data-label="TÍTULO"]::before {
-                margin-bottom: 4px;
-            }
-
-            .results-table td i {
-                font-size: 1.4rem;
-            }
-
-            .pdf-container {
-                justify-content: flex-end;
-                width: 100%;
-                margin-top: 5px;
-            }
-            .results-table td[data-label="PDF"] {
-                min-height: 50px;
-            }
-
-            .pagination button {
-                padding: 6px 10px;
-                font-size: 0.85rem;
-            }
+            .filter-secondary-inner { flex-direction: column; align-items: stretch; }
+            .filter-group-id, .filter-group-texto { flex: 1 1 100%; width: 100%; }
+            .filter-group-id.active .input-slide { width: 100%; margin-left: 0; margin-top: 10px; }
+            .filter-group-limpiar { width: 100%; }
+            .filter-group-limpiar .btn-clear { width: 100%; justify-content: center; padding: 12px; }
+            .filter-results-row { flex-direction: column; align-items: stretch; gap: 10px; }
+            .btn-export { width: 100%; justify-content: center; padding: 12px; }
+            .results-table thead { display: none !important; }
+            .results-table, .results-table table, .results-table tbody { display: block; width: 100%; overflow: hidden; }
+            .results-table tr { display: block; width: 100%; margin-bottom: 15px; border: 2px solid #611232; border-radius: 10px; background: #fff; box-sizing: border-box; overflow: hidden; }
+            .results-table td { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px !important; border-bottom: 1px solid #eee; width: 100%; box-sizing: border-box; white-space: normal !important; word-break: break-word; }
+            .results-table td::before { content: attr(data-label); font-weight: bold; color: #611232; font-size: 0.75rem; margin-right: 10px; }
+            .results-table td[data-label="TÍTULO"] { flex-direction: column; align-items: flex-start; text-align: left !important; }
+            .results-table td[data-label="TÍTULO"]::before { margin-bottom: 4px; }
         }
 
     </style>
@@ -614,9 +496,9 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>TÍTULO</th>
-                                <th>AÑO</th>
+                                <th class="sortable" onclick="ordenarTabla('NORMALIZED_ID')">ID <span class="sort-icon">⇅</span></th>
+                                <th class="sortable" onclick="ordenarTabla('TITULO_ORIGINAL')">TÍTULO <span class="sort-icon">⇅</span></th>
+                                <th class="sortable" onclick="ordenarTabla('AÑO')">AÑO <span class="sort-icon">⇅</span></th>
                                 <th>VISTA RÁPIDA</th>
                                 <th>ESTUDIO</th>
                             </tr>
@@ -636,7 +518,6 @@
             Dudas, comentarios, sugerencias o cualquier asunto relacionado con el acervo contenido en la BiVAS, favor de enviar un mensaje de correo electrónico a <strong><a href="mailto:biblioteca_sgt_gas@conagua.gob.mx">biblioteca_sgt_gas@conagua.gob.mx</a></strong>, y con gusto le atenderemos.
         <p>
             Para consultar los documentos dentro de la biblioteca agradeceremos su visita en: Avenida Insurgentes Sur No. 2416, planta baja, Colonia Copilco El Bajo, Alcaldía Coyoacán, Ciudad de México, México, C.P. 04340 (indispensable identificación vigente y solicitar por correo electrónico clave de acceso).
-
         </p>
         </div>
     </section>
@@ -659,41 +540,36 @@
                 <p>
                    Es el portal único de trámites, información y participación ciudadana. 
                    <p><a href="https://www.gob.mx/que-es-gobmx" target="_blank">Leer más</a></p>
-
                 </p>
             </div>
         </div>
     </footer>
 
     <div id="modal-acerca" class="bivas-modal">
-    <div class="bivas-modal-content">
-        <div class="bivas-modal-header">
-            <h3 style="margin:0; font-size:16px; font-weight:600; text-align:center">Consulta de Estudios, creado el 30/03/2023</h3>
-            <span class="bivas-close">&times;</span>
-        </div>
-        
-        <div class="bivas-modal-body" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;">
+        <div class="bivas-modal-content">
+            <div class="bivas-modal-header">
+                <h3 style="margin:0; font-size:16px; font-weight:600; text-align:center">Consulta de Estudios, creado el 30/03/2023</h3>
+                <span class="bivas-close">&times;</span>
+            </div>
             
-            <img src="images/Logo_CONAGUA_W_I.png" alt="CONAGUA" height="100px" width="100px" 
-                 style="display: block; margin-bottom: 10px;"
-                 onerror="this.src='https://www.gob.mx/cms/uploads/image/file/487383/conagua-logo-300.png'">
-            
-            <h3 style="margin:0; font-size:16px; font-weight:600;">Subdirección General Técnica</h3>
-            <h3 style="margin:0; font-size:16px; font-weight:600;">Gerencia de Aguas Subterráneas</h3>
+            <div class="bivas-modal-body" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;">
+                <img src="images/Logo_CONAGUA_W_I.png" alt="CONAGUA" height="100px" width="100px" 
+                     style="display: block; margin-bottom: 10px;"
+                     onerror="this.src='https://www.gob.mx/cms/uploads/image/file/487383/conagua-logo-300.png'">
+                <h3 style="margin:0; font-size:16px; font-weight:600;">Subdirección General Técnica</h3>
+                <h3 style="margin:0; font-size:16px; font-weight:600;">Gerencia de Aguas Subterráneas</h3>
+                <p style="margin-top: 15px;">Consulta del Acervo de Estudios de la Biblioteca de Aguas Subterráneas, realizado por la Subgerencia de Información Geográfica del Agua (SIGA).</p>
+                <p style="margin-top: 15px;">Versión 10.2</p>           
+                <p style="margin-top: 15px;">Actualizado el 15 de abril de 2026</p>
+            </div>
 
-            <p style="margin-top: 15px;">Consulta del Acervo de Estudios de la Biblioteca de Aguas Subterráneas, realizado por la Subgerencia de Información Geográfica del Agua (SIGA).</p>
-            <p style="margin-top: 15px;">Versión 10.4</p>           
-            <p style="margin-top: 15px;">Actualizado el 15 de abril de 2026</p>
-
-        </div>
-
-        <div class="bivas-modal-footer">
-            <button class="btn-modal-close" id="btn-cerrar-modal">Cerrar</button>
+            <div class="bivas-modal-footer">
+                <button class="btn-modal-close" id="btn-cerrar-modal">Cerrar</button>
+            </div>
         </div>
     </div>
-</div>
 
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/script3.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
