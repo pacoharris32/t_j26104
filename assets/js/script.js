@@ -77,6 +77,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================
     // LÓGICA DE ORDENAMIENTO
     // =========================================================
+
+    // Mapa: clave de datos → índice de columna en el <thead>
+    const COLUMNA_INDEX = { 'NORMALIZED_ID': 0, 'TITULO_ORIGINAL': 1, 'AÑO': 2 };
+
+    const actualizarFlechas = () => {
+        // Limpiar estado visual de todos los th ordenables
+        document.querySelectorAll('.results-table th.sortable').forEach(th => {
+            th.classList.remove('sort-asc', 'sort-desc');
+            th.querySelector('.sort-icon').textContent = '⇅';
+        });
+
+        if (!currentSortColumn) return;
+
+        const idx = COLUMNA_INDEX[currentSortColumn];
+        const th = document.querySelectorAll('.results-table th.sortable')[idx];
+        if (!th) return;
+
+        if (isAscending) {
+            th.classList.add('sort-asc');
+            th.querySelector('.sort-icon').textContent = '↑';
+        } else {
+            th.classList.add('sort-desc');
+            th.querySelector('.sort-icon').textContent = '↓';
+        }
+    };
+
     window.ordenarTabla = (columna) => {
         if (currentSortColumn === columna) {
             isAscending = !isAscending;
@@ -101,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         currentPage = 1;
+        actualizarFlechas();
         renderizarTabla();
     };
 
@@ -248,6 +275,8 @@ document.addEventListener('DOMContentLoaded', () => {
         filtroTexto.value = '';
         if (containerId) containerId.classList.remove('active');
         currentSortColumn = '';
+        isAscending = true;
+        actualizarFlechas();
         aplicarFiltrosYRenderizar();
     });
 
